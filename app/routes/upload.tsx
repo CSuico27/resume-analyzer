@@ -5,7 +5,7 @@ import Navbar from '~/components/Navbar'
 import { convertPdfToImage } from '~/lib/pdf2img';
 import { usePuterStore } from '~/lib/puter';
 import { generateUUID } from '~/lib/formatSize';
-import { prepareInstructions } from 'constants/index';
+import { prepareInstructions, AIResponseFormat } from 'constants/index';
 
 const upload = () => {
     const { fs, auth, isLoading, ai, kv } = usePuterStore();
@@ -50,7 +50,7 @@ const upload = () => {
         setStatusText('Analyzing resume with AI...')
         const feedback = await ai.feedback(
             uploadedFile.path,
-            prepareInstructions({ jobTitle, jobDescription })
+            prepareInstructions({ jobTitle, jobDescription, AIResponseFormat })
         );
 
         if (!feedback) return setStatusText('Error: Failed to analyze resume. Please try again.');
